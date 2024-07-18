@@ -3,89 +3,10 @@
  */
 package org.example;
 
-import java.net.HttpURLConnection;
-import java.net.URL; 
-import java.util.Scanner; 
-
 public class App {
-
-
     public static void main(String... args) {
-        if(args.length == 0){
-            menuAyuda(); 
-            return;
-        }
-        
-        switch(args[0]){
-            case "-h": case "--help": 
-                menuAyuda(); 
-                break; 
-            case "get": case "GET": 
-                
-                if(args.length < 2){
-                    System.out.println("\n\n\t\t:: Debe especificar la ruta ::\n"); 
-                    return; 
-                }
-                
-                try{
-                    URL url = new URL(args[1]);
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection(); 
-                    con.setRequestMethod("GET");
-                    int responseCode = con.getResponseCode(); 
-
-                    if(responseCode != 200){
-                        System.out.printf("\n\n\t:: Ocurrió un erro -> %d", responseCode);
-                        return; 
-                    } 
-
-                    StringBuilder sb = new StringBuilder(); 
-                    Scanner sc = new Scanner(url.openStream());
-
-                    while(sc.hasNext()){
-                        sb.append(sc.nextLine());
-                    } 
-
-                    sc.close(); 
-                    System.out.println("\n\n"+sb.toString()); 
-                } catch(Exception e){
-                    System.out.println(e); 
-                }
-
-                break; 
-            default: 
-                System.out.println("\n\n\t\t::Opción no disponible\n"); 
-        }
+        RestClient rest = new RestClient(args); 
+        rest.gestorPeticiones();
     }
-
-    public static void menuAyuda() {
-        // indicaciones de uso
-        System.out.println("\n\n\tUso: java -jar rest-client.jar <verbo_http> [opciones]");
-        
-        System.out.print("\n\tVerbos http disponibles: "); 
-        // Verbo "GET"
-        System.out.printf("\n\n\t%-7s%5s%s", "get", " " ,"Realiza una petición GET para traer datos");
-        System.out.printf("\n\t%12s%s", " ", "Uso: get <ruta>");
-        // Verbo "POST"
-        System.out.printf("\n\n\t%-7s%5s%s", "post", " " ,"Realiza una petición POST para enviar datos");
-        System.out.printf("\n\t%12s%s", " ", "Uso: post <ruta> <datos_json>");
-        // Verbo "PUT"
-        System.out.printf("\n\n\t%-7s%5s%s", "put", " " ,"Realiza una petición PUT para actualizar datos");
-        System.out.printf("\n\t%12s%s", " ", "Uso: put <ruta> <datos_json>");
-        // Verbo "DELETE"
-        System.out.printf("\n\n\t%-7s%5s%s", "delete", " " ,"Realiza una petición PUT para actualizar datos");
-        System.out.printf("\n\t%12s%s", " ", "Uso: Delete <ruta>");
-
-        System.out.println("\n\n\tOpciones adicionales: ");
-        
-        // Ayuda
-        System.out.printf("\n\t-h, --help %5s%s", " ", "Muestra una ayuda del uso de la herramienta");
-        
-        // file
-        System.out.printf("\n\n\t-f, --file %5s%s", " ", "Envía los datos desde un archivo");
-        System.out.printf("\n\t\t  %5s Uso: <verbo_http> -f <ruta> <ruta_del_archivo>", " "); 
-        
-        // output -> salida del resultado a un archivo
-        System.out.printf("\n\n\t-o, -output %4s%s", " ", "Los datos recibidos los guarda en un archivo"); 
-        System.out.printf("\n\t\t %5s  Uso: <verbo_http> -o <ruta> <ruta_de_archivo>\n", " ");  
-    }
+    
 }

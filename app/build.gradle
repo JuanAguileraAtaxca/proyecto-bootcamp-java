@@ -18,9 +18,12 @@ repositories {
 dependencies {
     // Use JUnit test framework.
     testImplementation libs.junit
-
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'org.json:json:20240303'
     // This dependency is used by the application.
     implementation libs.guava
+//Thanks for using https://jar-download.com
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
