@@ -34,9 +34,6 @@ public class PostCommand{
                 os.write(input, 0, input.length);
             }
 
-            int code = con.getResponseCode();
-
-            // Leer la respuesta
             BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8")); 
             StringBuilder response = new StringBuilder();
             String responseLine;
