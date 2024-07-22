@@ -3,11 +3,59 @@
  */
 package proyecto.restcli;
 
+import org.junit.After;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import org.junit.Before;
 import org.junit.Test;
 
+import proyecto.restcli.commads.DeleteCommand;
+import proyecto.restcli.commads.GetCommand;
+import proyecto.restcli.commads.PostCommand;
+
+
 public class AppTest {
-    @Test public void appHasAGreeting() {
-        App classUnderTest = new App();
-        // assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+
+    private DeleteCommand delete; 
+    private GetCommand get; 
+    private PostCommand post; 
+
+    @Before
+    public void iniciar(){
+        delete = new DeleteCommand(); 
+        get = new GetCommand(); 
+        post = new PostCommand(); 
+    }
+
+    @After
+    public void terminar(){
+        delete = null; 
+        get = null; 
+        post = null; 
+    }
+
+    @Test public void testearPeticionDelete(){
+        String result = delete.peticionDelete("DELETE", "https://jsonplaceholder.typicode.com/posts/1");
+        assertNotNull("Debería devolver {}", result); 
+    }
+
+    @Test public void testearPeticionGet(){
+        String result = get.peticionGet("get", "https://jsonplaceholder.typicode.com/posts/1");
+        assertNotNull("Debería retornar un json", result); 
+    }
+
+    @Test public void testearPeticionGetConUrlIncorrecta(){
+        String result = get.peticionGet("GET", "https://jsonplaceholder.typicode.com/posts/12717"); 
+        assertNull("Debería devolver null", result); 
+    }
+
+    @Test public void testearPeticionPost(){
+        String result = post.peticionPost("POST", "https://jsonplaceholder.typicode.com/posts", "{\"title\": \"foo\", \"body\": \"bar\", \"userId\": 1}");
+        assertNotNull("Debería retornar un json", result);
+    }
+
+    @Test public void testearPeticionPostConUnArchivo(){
+        String result = post.peticionPost("POST", "https://jsonplaceholder.typicode.com/posts", "/home/juan/Escritorio/proyecto-bootcamp/body.json");
+        assertNotNull("Debería retornar un json", result);
     }
 }

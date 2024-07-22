@@ -10,13 +10,13 @@ import proyecto.restcli.utils.Formateador;
 
 public class DeleteCommand{
 
-    public void peticionDelete(String... args){
+    public String peticionDelete(String... args){
 
         Formateador format = new Formateador(); 
-
+        String respuesta = ""; 
         if (args.length < 2) {
             System.out.print("\n\n\t\t:: Debe agregar la ruta ::\n");
-            return; 
+            return null; 
         }
 
         try {
@@ -30,7 +30,7 @@ public class DeleteCommand{
 
             if (responseCode != 200) {
                 System.out.print("\n\n\t\t:: Hubo un error ::\n\n");
-                return; 
+                return null; 
             }
 
             try (BufferedReader br = new BufferedReader(
@@ -40,12 +40,15 @@ public class DeleteCommand{
                 while ((responseLine = br.readLine()) != null) {
                     response.append(responseLine.trim());
                 }
+                respuesta = response.toString(); 
                 format.formatear(response.toString());
             }
 
         } catch (Exception e) {
             System.out.println(e.getMessage()); 
         }
+
+        return respuesta; 
     }
 
 }

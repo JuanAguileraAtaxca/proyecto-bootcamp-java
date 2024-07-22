@@ -23,7 +23,13 @@ dependencies {
     // This dependency is used by the application.
     implementation libs.guava
 //Thanks for using https://jar-download.com
+}
 
+test {
+    useJUnit()
+    testLogging {
+        events "passed", "skipped", "failed" 
+    }
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

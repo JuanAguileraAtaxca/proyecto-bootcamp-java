@@ -13,12 +13,12 @@ import proyecto.restcli.utils.LecturaArchivo;
 
 public class PostCommand{
 
-    public void peticionPost(String... args){
+    public String peticionPost(String... args){
         Formateador format = new Formateador(); 
-
+        String respuesta = null; 
         if (args.length < 3) {
             System.out.println("\n\n\t\t:: Debe ingresar la url ::\n");
-            return; 
+            return null; 
         }
 
         try {
@@ -55,10 +55,14 @@ public class PostCommand{
             }
 
             format.formatear(response.toString());
+            respuesta = response.toString(); 
 
         } catch (Exception e) {
             e.printStackTrace();
+            return null; 
         }
+
+        return respuesta; 
     }
 }
 

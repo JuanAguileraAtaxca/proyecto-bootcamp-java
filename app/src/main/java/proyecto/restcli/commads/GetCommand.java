@@ -14,13 +14,13 @@ import proyecto.restcli.utils.Formateador;
 
 public class GetCommand{
 
-    public void peticionGet(String... args){
+    public String peticionGet(String... args){
 
         Formateador format = new Formateador();
-
+        String respuesta = null; 
         if(args.length < 2){
             System.out.println("\n\n\t\t:: Debe especificar la ruta ::\n");
-            return;  
+            return null;  
         }
 
         try {
@@ -28,11 +28,11 @@ public class GetCommand{
             HttpURLConnection con = (HttpURLConnection) url.openConnection(); 
             con.setRequestMethod("GET");
 
-            int respuesta = con.getResponseCode(); 
+            int res = con.getResponseCode(); 
 
-            if(respuesta != 200){
+            if(res != 200){
                 System.out.printf("\n\n\t\t%s:: Error -> No hubo respuesta ::%s\n\n", Colores.ANSI_RED, Colores.ANSI_RESET);
-                return;  
+                return null;  
             }
 
             StringBuilder sb = new StringBuilder();
@@ -57,15 +57,16 @@ public class GetCommand{
                 BufferedWriter bw = new BufferedWriter(fw); 
                 bw.write(sb.toString());
                 bw.close();
-                return; 
+                return sb.toString(); 
             }
-
+            respuesta = sb.toString(); 
             format.formatear(sb.toString());
         } catch (Exception e) {
+            e.printStackTrace();
+            return null; 
+        } 
 
-        } finally {
-
-        }
+        return respuesta; 
 
     }
 }
