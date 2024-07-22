@@ -5,7 +5,7 @@ public class Menu{
 
     public void menuAyuda() {
         // indicaciones de uso
-        System.out.println("\n\n\tUso: java -jar rest-client.jar <verbo_http> [opciones]");
+        System.out.println("\n\n\tUso: gradle run --args=\"<verbo_http> [opciones]\"");
         
         System.out.print("\n\tVerbos http disponibles: "); 
         // Verbo "GET"
