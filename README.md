@@ -121,10 +121,6 @@ salida:
 
 ```
     proyecto-bootcamp/
-    ├── build/
-    │ ├── classes/
-    │ ├── reports/
-    │ └── libs/
     ├── src/
     │ ├── main/
     │ │ ├── java/
@@ -144,7 +140,7 @@ salida:
     │ │ │            └── Menu.java
     │ │ │
     │ │ └── resources/
-    │ └── test/
+    │ ├── test/
     │ ├── java/
     │ │   └── proyecto/
     │ │       └── restcli/
