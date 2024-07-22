@@ -1,7 +1,7 @@
 
-package org.example.utils; 
+package proyecto.restcli.utils; 
 
-import org.json.JSONArray; 
+import org.json.JSONArray;
 import org.json.JSONException; 
 import org.json.JSONObject; 
 

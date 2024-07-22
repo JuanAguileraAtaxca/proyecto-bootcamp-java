@@ -1,12 +1,11 @@
 
-package org.example;
+package proyecto.restcli;
 
-import org.example.commads.DeleteCommand;
-import org.example.commads.GetCommand;
-import org.example.commads.PostCommand;
-import org.example.commads.PutCommand;
-import org.example.utils.Formateador;
-import org.example.utils.Menu;
+import proyecto.restcli.commads.DeleteCommand;
+import proyecto.restcli.commads.GetCommand;
+import proyecto.restcli.commads.PostCommand;
+import proyecto.restcli.commads.PutCommand;
+import proyecto.restcli.utils.Menu;
 
 public class RestClient{
 
@@ -18,11 +17,15 @@ public class RestClient{
 
     public void gestorPeticiones(){
         Menu menu = new Menu(); 
-        Formateador format = new Formateador(); 
         GetCommand get = new GetCommand();
         PostCommand post = new PostCommand(); 
         PutCommand put = new PutCommand(); 
         DeleteCommand delete = new DeleteCommand(); 
+
+        if (this.args.length == 0) {
+            menu.menuAyuda();
+            return; 
+        }
 
         switch(this.args[0]){
             case "-h": case "--help": 
@@ -41,7 +44,7 @@ public class RestClient{
                 delete.peticionDelete(args);
                 break; 
             default: 
-                System.out.println("\n\n\t\t::Opción no disponible\n"); 
+                System.out.println("\n\n\t\t:: Opción no disponible ::\n"); 
         }
     }
     
